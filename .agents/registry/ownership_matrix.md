@@ -1,319 +1,205 @@
-# Artifact Policy
+# Ownership Matrix
 
 ## Objetivo
 
-Este documento define quais artefatos de projeto existem no método, para que servem, como são classificados e quais regras gerais orientam sua criação, atualização e preservação.
+Este documento define quais agentes possuem permissão para interagir com cada artefato do projeto, especificando:
 
-O objetivo desta política é evitar desorganização, sobrescrita indevida, perda de contexto e contradições entre agentes durante o desenvolvimento orientado por IA.
+- quem pode criar;
+- quem pode editar;
+- quem pode revisar;
+- quem pode apenas ler.
 
----
-
-## Princípios gerais
-
-### 1. Os artefatos são a memória operacional do projeto
-A conversa com o usuário ajuda a iniciar e conduzir o trabalho, mas a verdade operacional do projeto deve ser registrada em artefatos persistentes.
-
-### 2. Nem todo artefato pode ser tratado da mesma forma
-Alguns artefatos representam decisões fundacionais e não devem ser reescritos livremente. Outros são operacionais e podem ser atualizados com frequência.
-
-### 3. Mudanças devem ser proporcionais ao impacto
-Quanto mais estrutural for o artefato, mais conservadora deve ser sua atualização.
-
-### 4. Atualização localizada é preferível à regeneração total
-Sempre que possível, os agentes devem atualizar apenas a seção necessária, preservando o restante do documento.
-
-### 5. Em caso de dúvida, preservar
-Se houver incerteza sobre a necessidade de alteração, o agente deve preferir:
-- propor mudança;
-- criar adendo;
-- registrar no decision log;
-- ou solicitar reavaliação do orquestrador.
-
-Nunca deve reescrever integralmente um artefato estrutural por conveniência.
+O objetivo é evitar conflitos, sobrescritas indevidas, ambiguidades de responsabilidade e perda de controle operacional.
 
 ---
 
-## Artefatos-base do projeto
+## Agentes do sistema
 
-A versão inicial do método reconhece os seguintes artefatos como núcleo operacional do projeto.
-
-### 1. `idea.md`
-Define a ideia central do projeto, o problema que se quer resolver e a intenção principal da solução.
-
-**Função:**
-- registrar a visão inicial;
-- consolidar a proposta central do projeto;
-- servir como referência de origem.
+- Discovery
+- Architect
+- Orchestrator
+- Executor
+- Reviewer
 
 ---
 
-### 2. `scope.md`
-Define o que faz parte do projeto ou da fase atual.
+## Tipos de permissão
 
-**Função:**
-- delimitar o que está dentro do escopo;
-- reduzir ambiguidades;
-- evitar expansão descontrolada.
-
----
-
-### 3. `non_goals.md`
-Define explicitamente o que não será tratado neste momento.
-
-**Função:**
-- proteger o foco;
-- evitar deriva de escopo;
-- documentar exclusões conscientes.
+- **C (Create)** → pode criar o artefato
+- **E (Edit)** → pode editar diretamente
+- **R (Review)** → pode revisar e sugerir mudanças
+- **L (Read)** → apenas leitura
 
 ---
 
-### 4. `decision_log.md`
-Registra decisões relevantes de produto, arquitetura, execução e mudança de direção.
+## Matriz de ownership
 
-**Função:**
-- preservar racional por trás das escolhas;
-- evitar rediscussão improdutiva;
-- manter histórico de evolução.
-
----
-
-### 5. `implementation_plan.md`
-Define o plano macro de implementação.
-
-**Função:**
-- traduzir intenção em execução;
-- organizar fases;
-- apontar prioridades e blocos de entrega.
+| Artefato                | Discovery | Architect | Orchestrator | Executor | Reviewer |
+|------------------------|----------|----------|-------------|----------|----------|
+| idea.md                | C/E      | L        | L           | L        | L        |
+| scope.md               | C/E      | L        | L           | L        | L        |
+| non_goals.md           | C/E      | L        | L           | L        | L        |
+| decision_log.md        | C/E      | E        | E           | L        | R        |
+| implementation_plan.md | C/E      | E        | E           | L        | R        |
+| tasks.md               | C        | L        | E           | L        | R        |
+| architecture.md        | L        | C/E      | L           | L        | R        |
+| project_status.md      | L        | L        | C/E         | E*       | E        |
+| review_report.md       | L        | L        | L           | L        | C/E      |
+| handoff.md             | L        | L        | C/E         | E        | E        |
 
 ---
 
-### 6. `tasks.md`
-Lista e organiza as tarefas do projeto.
+## Regras por artefato
 
-**Função:**
-- decompor trabalho;
-- registrar dependências;
-- manter estado operacional da execução.
-
----
-
-### 7. `architecture.md`
-Define a estrutura técnica do sistema.
-
-**Função:**
-- registrar módulos, fluxos, contratos e decisões técnicas;
-- orientar implementações;
-- evitar contradições estruturais.
+### idea.md / scope.md / non_goals.md
+- Controle exclusivo do Discovery
+- Não devem ser alterados por outros agentes
+- Revisão só ocorre via nova rodada de descoberta ou decisão explícita
 
 ---
 
-### 8. `project_status.md`
-Consolida o estado atual do projeto.
-
-**Função:**
-- mostrar o que está concluído, em andamento, bloqueado e pendente;
-- fornecer leitura rápida do estado operacional.
-
----
-
-### 9. `review_report.md`
-Registra resultados de revisão técnica, validação e bloqueios.
-
-**Função:**
-- documentar aprovação ou reprovação;
-- justificar ajustes;
-- registrar riscos e inconsistências detectadas.
+### decision_log.md
+- Discovery cria base
+- Architect e Orchestrator podem registrar decisões
+- Reviewer pode comentar ou sugerir ajustes
+- Nunca apagar decisões antigas
 
 ---
 
-### 10. `handoff.md`
-Registra a passagem de contexto entre agentes e etapas.
-
-**Função:**
-- transferir contexto operacional;
-- reduzir perda de informação entre etapas;
-- orientar o próximo agente de forma objetiva.
+### implementation_plan.md
+- Discovery cria versão inicial
+- Architect refina tecnicamente
+- Orchestrator ajusta execução
+- Reviewer pode sugerir melhorias
 
 ---
 
-## Classificação dos artefatos
-
-Os artefatos são classificados em três níveis de mutabilidade.
-
----
-
-## Categoria A — Imutáveis
-
-São artefatos fundacionais. Após aprovados, não devem ser reescritos integralmente.
-
-### Artefatos desta categoria
-- `idea.md`
-- `scope.md`
-- `non_goals.md`
-
-### Regra geral
-Esses artefatos representam a definição original ou consolidada da intenção do projeto. Se houver necessidade de mudança, a alteração não deve apagar a formulação anterior sem registro.
-
-### Forma correta de mudança
-A mudança deve ocorrer por um dos meios abaixo:
-- adendo;
-- nova seção de revisão;
-- nova versão explicitamente identificada;
-- registro no `decision_log.md` com impacto descrito.
-
-### Forma incorreta de mudança
-- regenerar o documento inteiro sem justificativa;
-- substituir silenciosamente conteúdo aprovado;
-- alterar conceito central sem registrar a mudança.
+### tasks.md
+- Discovery pode propor estrutura inicial
+- Orchestrator é responsável pela manutenção contínua
+- Executor não altera tasks diretamente
+- Reviewer pode apontar inconsistências
 
 ---
 
-## Categoria B — Semi-imutáveis
-
-São artefatos estruturais. Podem mudar, mas com cuidado e justificativa.
-
-### Artefatos desta categoria
-- `implementation_plan.md`
-- `architecture.md`
-
-### Regra geral
-Esses artefatos podem evoluir conforme o projeto amadurece, mas não devem ser alterados de forma impulsiva ou sem rastreabilidade.
-
-### Forma correta de mudança
-A alteração deve:
-- ter motivo objetivo;
-- ser preferencialmente localizada;
-- ser refletida no `decision_log.md` quando gerar impacto estrutural;
-- preservar coerência com escopo e não objetivos.
-
-### Forma incorreta de mudança
-- reescrever o documento inteiro por conveniência;
-- alterar arquitetura sem impacto documentado;
-- mudar o plano de implementação sem refletir isso no restante do projeto.
+### architecture.md
+- Controle do Architect
+- Outros agentes não editam diretamente
+- Mudanças devem passar por decisão registrada
 
 ---
 
-## Categoria C — Mutáveis
-
-São artefatos operacionais, atualizados continuamente durante o trabalho.
-
-### Artefatos desta categoria
-- `decision_log.md`
-- `tasks.md`
-- `project_status.md`
-- `review_report.md`
-- `handoff.md`
-
-### Regra geral
-Esses artefatos podem receber atualizações frequentes, desde que mantenham legibilidade, consistência e utilidade operacional.
-
-### Forma correta de atualização
-- adicionar entradas novas;
-- atualizar status;
-- registrar revisão;
-- incluir handoffs claros;
-- preservar histórico relevante.
-
-### Forma incorreta de atualização
-- apagar histórico útil sem motivo;
-- misturar tipos de informação sem estrutura;
-- transformar documento operacional em documento caótico.
+### project_status.md
+- Orchestrator mantém o estado geral
+- Executor pode atualizar progresso (*apenas status de execução*)
+- Reviewer pode atualizar status de aprovação
 
 ---
 
-## Regras de uso por natureza do artefato
-
-### Artefatos fundacionais
-Devem ser curtos, claros e estáveis.
-
-### Artefatos estruturais
-Devem ser detalhados o suficiente para orientar execução, sem virar documentação excessiva.
-
-### Artefatos operacionais
-Devem priorizar clareza, atualização rápida e leitura fácil.
+### review_report.md
+- Exclusivo do Reviewer
+- Outros agentes não editam
+- Pode ser lido por todos
 
 ---
 
-## Regras gerais de atualização
-
-### 1. Atualização localizada é o padrão
-Todo agente deve preferir alterar apenas a parte necessária do artefato.
-
-### 2. Regeneração total é exceção
-A reescrita completa de um artefato só é aceitável quando:
-- houver mudança estrutural relevante;
-- a versão anterior estiver irrecuperavelmente inconsistente;
-- a mudança estiver explicitamente justificada.
-
-### 3. Mudança estrutural deve deixar rastro
-Toda mudança que impacte escopo, arquitetura ou plano deve ser registrada no `decision_log.md`.
-
-### 4. Artefato não é espaço de improviso
-Nenhum agente deve usar artefatos para inserir ideias não validadas como se já fossem decisão consolidada.
-
-### 5. O estado atual do projeto deve ser legível
-Os artefatos, em conjunto, devem permitir responder:
-- o que estamos construindo;
-- por que estamos construindo;
-- como está estruturado;
-- o que está sendo feito agora;
-- o que mudou;
-- o que vem depois.
+### handoff.md
+- Orchestrator cria handoffs
+- Executor registra execução
+- Reviewer pode complementar com observações
 
 ---
 
-## Regras de preservação
+## Regras gerais de ownership
 
-### 1. Não apagar contexto importante
-Informações relevantes para entendimento histórico ou operacional não devem ser apagadas sem motivo forte.
-
-### 2. Preservar decisões anteriores
-Mesmo quando uma decisão muda, o projeto deve manter rastreabilidade da decisão anterior e do motivo da mudança.
-
-### 3. Evitar duplicação confusa
-Se um conteúdo já tem artefato próprio, ele não deve ser replicado de maneira contraditória em vários outros arquivos.
-
-### 4. Cada artefato deve cumprir seu papel
-- ideia não é task;
-- review não é arquitetura;
-- handoff não é decision log;
-- decision log não substitui scope.
+### 1. Nenhum agente tem controle total do sistema
+Cada agente tem um escopo limitado para evitar conflitos e perda de consistência.
 
 ---
 
-## Regras para agentes
-
-### 1. Nenhum agente deve assumir permissão ampla por padrão
-A capacidade de criar, editar ou apenas ler um artefato depende da matriz de ownership do método.
-
-### 2. Em caso de dúvida, o agente deve operar de forma conservadora
-Se houver risco de sobrescrita ou inconsistência, o agente deve:
-- resumir o estado atual;
-- indicar a alteração pretendida;
-- propor atualização localizada;
-- ou escalar ao orquestrador.
-
-### 3. O agente deve respeitar a natureza do artefato
-Nem toda informação descoberta durante a execução pertence ao mesmo documento.
+### 2. Quem cria não necessariamente mantém
+Exemplo:
+- Discovery cria o plano
+- Orchestrator mantém a execução
 
 ---
 
-## Critério de qualidade da política de artefatos
+### 3. Executor não altera estrutura
+Executor é responsável por executar tarefas, não por redefinir:
+- escopo
+- arquitetura
+- planejamento global
 
-Esta política estará sendo seguida corretamente quando:
+---
 
-- os artefatos tiverem papéis claros;
-- decisões importantes não se perderem na conversa;
-- mudanças relevantes deixarem rastro;
-- documentos centrais não forem sobrescritos de forma impulsiva;
-- o projeto puder ser compreendido por leitura dos artefatos, sem depender do histórico completo do chat.
+### 4. Reviewer não executa
+Reviewer não corrige código diretamente como regra.
+Ele valida, bloqueia ou aprova.
+
+---
+
+### 5. Alterações fora de permissão devem ser indiretas
+Se um agente precisar influenciar um artefato fora de sua permissão, ele deve:
+
+- registrar no decision_log.md
+- propor alteração via handoff
+- ou acionar o Orchestrator
+
+---
+
+### 6. O Orchestrator não reescreve definição de produto
+Ele coordena execução, não redefine:
+- ideia
+- escopo
+- não objetivos
+
+---
+
+### 7. O Architect não altera intenção
+Ele traduz intenção em estrutura, não cria intenção nova.
+
+---
+
+## Regra de conflito
+
+Se dois agentes tiverem visões conflitantes:
+
+1. Registrar no `decision_log.md`
+2. Orchestrator analisa impacto
+3. Se for estrutural → Architect
+4. Se for de produto → Discovery
+5. Se for de execução → Orchestrator decide
+
+---
+
+## Regra de escalonamento
+
+Um agente deve escalar ao Orchestrator quando:
+
+- não tiver permissão para alterar algo necessário;
+- identificar conflito entre artefatos;
+- perceber inconsistência estrutural;
+- não tiver contexto suficiente para decidir.
+
+---
+
+## Critério de qualidade da matriz
+
+Esta matriz está funcionando corretamente quando:
+
+- não há sobrescrita indevida de artefatos;
+- cada agente atua dentro do seu papel;
+- decisões deixam rastro;
+- conflitos são resolvidos de forma estruturada;
+- o projeto mantém consistência mesmo com múltiplos agentes atuando.
 
 ---
 
 ## Versão inicial
 
-Esta política é a versão inicial do método e poderá ser refinada com base no uso real, desde que as mudanças preservem os princípios centrais:
-- clareza;
-- rastreabilidade;
-- preservação;
-- coordenação segura entre agentes.
+Esta é a versão v1 da matriz de ownership e poderá ser refinada com o uso, desde que mantenha:
+
+- clareza de responsabilidade;
+- separação de papéis;
+- segurança operacional;
+- previsibilidade de comportamento dos agentes.
