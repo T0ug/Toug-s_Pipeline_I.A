@@ -29,3 +29,18 @@ Não é um framework fechado.
   workflows/
   templates/
   registry/
+
+## Instalação e uso local da CLI
+
+git clone https://github.com/T0ug/Toug-s_Pipeline_I.A.git
+cd Toug-s_Pipeline_I.A
+npm install
+npm link
+
+Depois, no projeto onde deseja instalar a pipeline:
+
+toug-pipeline init
+toug-pipeline doctor
+Importante
+
+O comando init deve ser executado no projeto alvo, não dentro do repositório da própria pipeline.
