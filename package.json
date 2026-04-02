@@ -1,0 +1,12 @@
+{
+    "name": "toug-pipeline-ia",
+    "version": "0.1.0",
+    "description": "CLI para instalar e verificar Toug's Pipeline I.A",
+    "bin": {
+        "toug-pipeline": "./cli/index.js"
+    },
+    "type": "module",
+    "scripts": {
+        "start": "node ./cli/index.js"
+    }
+}
