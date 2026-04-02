@@ -1,140 +1,348 @@
 ---
-description: Transforma a definição do projeto em arquitetura e estrutura pronta para execução.
+description: Define a arquitetura do projeto com Architect + design_architecture, garantindo decisões estruturais claras antes da execução.
 ---
 
 # Structure Project Workflow
 
 ## Objetivo
 
-Transformar a definição do projeto em estrutura técnica e preparação para execução.
+Transformar a definição do projeto em uma arquitetura técnica clara, validada e executável, utilizando:
+
+- Architect + design_architecture
+
+Garantir:
+
+- estrutura consistente do sistema
+- definição de componentes e responsabilidades
+- alinhamento com requisitos funcionais e não funcionais
+- registro de decisões técnicas
+- preparação segura para execução
 
 ---
 
-## Instruções
+## Pré-condições
 
-Siga este fluxo após o projeto ter sido definido pelo Discovery.
+Só iniciar este workflow se:
 
----
+- `idea.md` existe
+- `scope.md` existe
+- `non_goals.md` existe
+- `implementation_plan.md` existe
+- `decision_log.md` existe
+- a fase de definição foi concluída
 
-## Etapa 1 — Validar pré-condições
-
-Verifique se existem:
-
-- idea.md
-- scope.md
-- non_goals.md
-- implementation_plan.md
-
-Se faltar algum:
-→ retornar ao Discovery
+Se qualquer item estiver ausente:
+→ NÃO iniciar  
+→ retornar ao Discovery via Orchestrator
 
 ---
 
-## Etapa 2 — Ler contexto
+## Etapa 1 — Iniciar arquitetura
 
-Analise:
+**Agente:** Architect  
+**Skill:** design_architecture
 
-- objetivo do projeto
-- escopo
-- não objetivos
-- decisões iniciais
+Ações:
 
----
+- ler todos os artefatos de definição
+- compreender:
+  - escopo
+  - não objetivos
+  - NFRs
+  - restrições
+  - assumptions
 
-## Etapa 3 — Definir arquitetura
+Regras obrigatórias:
 
-Criar `architecture.md` contendo:
-
-- módulos do sistema
-- responsabilidades
-- fluxos principais
-- estrutura geral
-
----
-
-## Etapa 4 — Definir estrutura técnica
-
-- organizar backend, frontend e banco
-- definir diretórios principais
-- definir integração entre partes
+- não assumir decisões
+- não propor solução sem entender contexto completo
 
 ---
 
-## Etapa 5 — Definir contratos
+## Etapa 2 — Identificar lacunas
 
-- endpoints
-- inputs
-- outputs
-- comportamento esperado
+**Agente:** Architect  
+**Skill:** design_architecture
+
+Ações:
+
+- identificar:
+  - inconsistências
+  - decisões não tomadas
+  - riscos técnicos
+  - lacunas estruturais
+
+Se houver lacuna crítica:
+→ fazer uma pergunta ao usuário  
+→ não avançar
 
 ---
 
-## Etapa 6 — Registrar decisões técnicas
+## Etapa 3 — Explorar abordagens
 
-- atualizar `decision_log.md`
-- justificar escolhas
-- registrar impacto
+**Agente:** Architect  
+**Skill:** design_architecture
+
+Ações:
+
+Propor:
+
+- 2 a 3 abordagens possíveis
+
+Para cada abordagem:
+
+- descrever estrutura geral
+- explicar funcionamento
+- analisar trade-offs:
+  - complexidade
+  - escalabilidade
+  - manutenção
+  - risco
+
+Indicar abordagem recomendada.
 
 ---
 
-## Etapa 7 — Validar arquitetura
+## Etapa 4 — Escolher abordagem
 
-Confirmar:
+**Agente:** Architect  
+**Skill:** design_architecture
 
-- coerente com escopo
-- não contradiz não objetivos
-- executável
-- sem lacunas críticas
+Perguntar:
+
+> Podemos seguir com a abordagem recomendada ou prefere outra?
+
+Regras:
+
+- não avançar sem confirmação
+- registrar decisão no `decision_log.md`
+
+---
+
+## Etapa 5 — Definir arquitetura
+
+**Agente:** Architect  
+**Skill:** design_architecture
+
+Ações:
+
+Definir arquitetura de forma incremental, cobrindo:
+
+---
+
+### Estrutura geral
+
+- camadas
+- organização do sistema
+
+---
+
+### Componentes
+
+- frontend
+- backend (se houver)
+- serviços
+
+---
+
+### Fluxo de dados
+
+- entrada → processamento → saída
+
+---
+
+### Persistência
+
+- onde os dados vivem
+- como são acessados
+
+---
+
+### Integrações
+
+- APIs externas
+- serviços terceiros
+
+---
+
+### Tratamento de erro
+
+- falhas esperadas
+- comportamento em erro
+
+---
+
+### Escalabilidade
+
+- crescimento do sistema
+- limitações atuais
+
+---
+
+Regras obrigatórias:
+
+- validar progressivamente
+- não apresentar tudo sem validação
+
+---
+
+## Etapa 6 — Validação incremental
+
+**Agente:** Architect  
+**Skill:** design_architecture
+
+Após cada parte relevante:
+
+Perguntar:
+
+> Isso faz sentido até aqui?
+
+Se houver ajuste:
+→ corrigir antes de avançar
+
+---
+
+## Etapa 7 — Registrar decisões
+
+**Agente:** Architect  
+**Skill:** design_architecture
+
+Ações:
+
+Atualizar `decision_log.md` com:
+
+- decisões técnicas
+- alternativas consideradas
+- justificativas
+
+---
+
+## Etapa 8 — Consolidar arquitetura
+
+**Agente:** Architect  
+**Skill:** design_architecture
+
+Criar ou atualizar:
+
+- `architecture.md`
+
+Garantir:
+
+- coerência com escopo
+- alinhamento com NFRs
+- ausência de lacunas críticas
+
+---
+
+## Etapa 9 — Confirmação final
+
+**Agente:** Architect  
+**Skill:** design_architecture
+
+Perguntar:
+
+> A arquitetura está correta e podemos seguir para execução?
+
+Não encerrar sem confirmação.
+
+---
+
+## Etapa 10 — Orquestrar próxima ação
+
+**Agente:** Orchestrator  
+**Skill:** orchestrate_project
+
+Ações:
+
+- analisar arquitetura definida
+- validar consistência
+- decidir próxima etapa
+
+Próxima ação esperada:
+
+→ iniciar execução de tasks com Executor
 
 Se houver problema:
-→ ajustar antes de continuar
+→ retornar ao Architect
 
 ---
 
-## Etapa 8 — Preparar execução
-
-- revisar `tasks.md`
-- alinhar tasks com arquitetura
-- garantir que tasks fazem sentido
+## Regras obrigatórias do workflow
 
 ---
 
-## Saída esperada
-
-Projeto deve ter:
-
-- arquitetura definida
-- estrutura técnica clara
-- decisões registradas
-- tasks alinhadas
+### 1. Não avançar sem definição clara
+Arquitetura só começa com escopo definido.
 
 ---
 
-## Regras obrigatórias
+### 2. Não pular escolha de abordagem
+Sempre explorar alternativas antes de decidir.
 
-- Não alterar escopo
-- Não criar features novas
-- Não executar tasks
-- Não gerar overengineering
-- Manter simplicidade
+---
+
+### 3. Não assumir decisões técnicas
+Tudo deve ser confirmado ou registrado como assumption.
+
+---
+
+### 4. Não permitir lacunas estruturais
+Se faltar definição crítica:
+→ bloquear
+
+---
+
+### 5. Não executar código
+Este workflow não envolve implementação.
 
 ---
 
 ## Situações especiais
 
-### Falta de informação
-→ escalar para Discovery
+---
 
-### Conflito com escopo
-→ registrar e ajustar
+### Escopo insuficiente
 
-### Complexidade excessiva
-→ simplificar
+→ retornar ao Discovery
+
+---
+
+### NFRs não definidos
+
+→ retornar ao Discovery
+
+---
+
+### Arquitetura inconsistente
+
+→ corrigir antes de avançar
+
+---
+
+### Descoberta de mudança de escopo
+
+→ interromper  
+→ retornar ao Discovery via Orchestrator
+
+---
+
+## Critérios de saída
+
+O workflow só pode encerrar quando:
+
+- abordagem foi escolhida
+- arquitetura está definida
+- decisões estão registradas
+- não há lacunas críticas
+- usuário confirmou
 
 ---
 
 ## Regra final
 
-Arquitetura deve permitir execução clara.
+Se houver dúvida entre:
 
-Se não for executável, está errada.
+- avançar para execução
+- ou refinar arquitetura
+
+Você deve refinar arquitetura.

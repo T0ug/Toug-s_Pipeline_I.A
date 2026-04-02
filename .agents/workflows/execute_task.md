@@ -1,132 +1,286 @@
 ---
-description: Executa uma task do início à validação, coordenando Orchestrator, Executor e Reviewer com segurança e consistência.
+description: Executa uma task com Orchestrator, Executor e Reviewer, exigindo handoff antes da validação e bloqueando avanço sem contexto suficiente.
 ---
 
 # Execute Task Workflow
 
 ## Objetivo
 
-Executar uma task de forma controlada, garantindo clareza, consistência e validação adequada.
+Executar uma task de forma controlada, usando:
+
+- Orchestrator + orchestrate_project
+- Executor + implement_task
+- Reviewer + validate_delivery
+
+Garantir:
+
+- clareza antes da execução
+- implementação disciplinada
+- handoff obrigatório
+- validação objetiva
+- progressão segura do projeto
 
 ---
 
-## Instruções
+## Pré-condições
 
-Siga este fluxo sempre que uma task estiver pronta para execução.
+Só iniciar este workflow se:
 
----
-
-## Etapa 1 — Seleção da task
-
-- Identifique a próxima task disponível em `tasks.md`
-- Verifique dependências
-- Confirme que a task possui:
+- existe uma task definida em `tasks.md`
+- a task possui:
   - objetivo claro
   - contexto mínimo
   - critérios de aceite
-
-Se não estiver clara:
-→ NÃO execute
-→ solicite refinamento
-
----
-
-## Etapa 2 — Preparação do contexto
-
-- Leia:
-  - architecture.md
-  - implementation_plan.md
-  - decision_log.md
-- Extraia:
-  - objetivo da task
   - restrições
-  - critérios de aceite
+- `architecture.md` existe
+- `implementation_plan.md` existe
+- `decision_log.md` existe
 
-Registre contexto em `handoff.md`
+Se qualquer item estiver ausente:
+→ NÃO iniciar
+→ retornar ao Orchestrator
 
 ---
 
-## Etapa 3 — Execução
+## Etapa 1 — Orquestrar execução
 
-- Implemente somente o que está definido na task
-- Respeite a arquitetura
-- NÃO:
-  - altere escopo
-  - modifique arquitetura
-  - implemente além da task
+**Agente:** Orchestrator  
+**Skill:** orchestrate_project
 
-Registre:
+Ações:
+
+- identificar a próxima task viável
+- verificar dependências
+- confirmar que a task está pronta para execução
+- confirmar que não há bloqueios estruturais
+
+Se houver:
+
+- task ambígua
+- arquitetura insuficiente
+- conflito entre artefatos
+
+→ parar  
+→ registrar bloqueio  
+→ definir ação corretiva
+
+Saída esperada:
+
+- task selecionada
+- próxima ação definida
+- contexto pronto para execução
+
+---
+
+## Etapa 2 — Preparar contexto de execução
+
+**Agente:** Orchestrator  
+**Skill:** orchestrate_project
+
+Ações:
+
+- consolidar contexto da task
+- indicar artefatos relevantes:
+  - `tasks.md`
+  - `architecture.md`
+  - `implementation_plan.md`
+  - `decision_log.md`
+- definir objetivo da execução
+- definir restrições
+
+Registrar ou atualizar contexto operacional para a execução.
+
+Se o contexto estiver insuficiente:
+→ NÃO seguir para implementação
+
+---
+
+## Etapa 3 — Implementar task
+
+**Agente:** Executor  
+**Skill:** implement_task
+
+Ações:
+
+- ler a task atual
+- ler arquitetura e contexto técnico
+- delimitar o que será alterado
+- implementar somente o necessário
+- respeitar escopo e arquitetura
+
+Regras obrigatórias:
+
+- não expandir escopo
+- não alterar arquitetura por conta própria
+- não corrigir problemas fora da task sem autorização
+- não assumir requisitos não documentados
+
+Se houver ambiguidade:
+→ parar  
+→ retornar ao Orchestrator
+
+Saída esperada:
+
+- implementação concluída
+- entrega pronta para transição
+
+---
+
+## Etapa 4 — Registrar handoff obrigatório
+
+**Agente:** Executor  
+**Skill:** implement_task
+
+Ações:
+
+Criar ou atualizar `handoff.md` contendo:
+
+- task executada
+- objetivo da task
 - o que foi feito
 - arquivos alterados
-em `handoff.md`
+- decisões locais
+- limites da execução
+- pendências ou dúvidas
+- pontos de atenção para revisão
+- status da entrega
+
+Regra obrigatória:
+
+Sem `handoff.md` válido:
+→ NÃO seguir para revisão
 
 ---
 
-## Etapa 4 — Revisão
+## Etapa 5 — Validar entrega
 
-- Compare a implementação com:
-  - task
-  - arquitetura
-  - decision_log.md
+**Agente:** Reviewer  
+**Skill:** validate_delivery
 
-Valide:
-- funcionalidade
-- consistência
-- escopo
+Ações:
 
-Gere `review_report.md`
+- ler:
+  - task atual em `tasks.md`
+  - `architecture.md`
+  - `decision_log.md`
+  - `handoff.md`
+  - código implementado
+- validar:
+  - cumprimento da task
+  - aderência à arquitetura
+  - respeito ao escopo
+  - consistência com os artefatos
+
+Classificar achados como:
+
+- crítico
+- relevante
+- menor
+
+Gerar ou atualizar `review_report.md`
 
 ---
 
-## Etapa 5 — Decisão
+## Etapa 6 — Decidir resultado da revisão
 
-Se estiver correto:
-- marcar task como concluída
+**Agente:** Reviewer  
+**Skill:** validate_delivery
+
+Escolher uma única decisão:
+
+- aprovado
+- aprovado com observações
+- reprovado
+
+### Se aprovado
+- task pode seguir como concluída
+
+### Se aprovado com observações
+- task pode seguir, mas observações devem ser registradas
+
+### Se reprovado
+- registrar problemas
+- retornar ao Executor via Orchestrator
+
+Toda reprovação deve ser objetiva e acionável.
+
+---
+
+## Etapa 7 — Atualizar estado do projeto
+
+**Agente:** Orchestrator  
+**Skill:** orchestrate_project
+
+Ações:
+
+- ler resultado da revisão
 - atualizar `project_status.md`
+- decidir a próxima ação:
+  - próxima task
+  - correção da task atual
+  - retorno à arquitetura
+  - retorno à descoberta
 
-Se houver problemas:
-- registrar erros
-- retornar para execução
+Regra obrigatória:
+
+Nunca avançar automaticamente se houver:
+- inconsistência crítica
+- reprovação
+- lacuna estrutural
 
 ---
 
-## Etapa 6 — Continuação
+## Regras obrigatórias do workflow
 
-- Atualizar estado do projeto
-- Definir próxima task
+### 1. Não executar task ambígua
+Se a task não estiver clara:
+→ bloquear
 
----
+### 2. Não revisar sem handoff
+Se não houver `handoff.md` suficiente:
+→ bloquear revisão
 
-## Regras obrigatórias
+### 3. Não aprovar sem validação
+Toda aprovação deve se basear em:
+- task
+- arquitetura
+- handoff
+- artefatos do projeto
 
-- Nunca executar task ambígua
-- Nunca sobrescrever artefatos estruturais
-- Nunca alterar escopo sem decisão registrada
-- Sempre trabalhar de forma incremental
-- Sempre respeitar:
-  - artifact_policy.md
-  - ownership_matrix.md
-  - overwrite_policy.md
+### 4. Não pular etapas
+Fluxo obrigatório:
+
+Orchestrator → Executor → Handoff → Reviewer → Orchestrator
+
+### 5. Reprovação faz parte do fluxo
+Reprovar não é falha do método.
+É proteção de integridade.
 
 ---
 
 ## Situações especiais
 
-### Falta de contexto
-→ parar e solicitar clarificação
+### Falta de task clara
+→ voltar ao Orchestrator
+
+### Falta de arquitetura
+→ voltar ao Architect via Orchestrator
 
 ### Conflito entre artefatos
-→ registrar no decision_log.md
-→ não executar
+→ registrar no `decision_log.md`
+→ bloquear execução
 
-### Mudança de escopo
-→ interromper fluxo
-→ acionar Discovery
+### Descoberta de mudança de escopo
+→ interromper execução
+→ retornar ao Discovery via Orchestrator
 
 ---
 
 ## Regra final
 
-Se houver dúvida, NÃO execute.
+Se houver dúvida entre:
 
-Clareza vem antes de velocidade.
+- seguir com a task
+- ou bloquear por falta de contexto
+
+Você deve bloquear.
