@@ -1,3 +1,8 @@
+---
+name: orchestrate-project
+description: Use this skill when it is necessary to determine the current state of the project, decide the next correct step, identify blockers or inconsistencies, choose which agent and skill should act next, or coordinate transitions between discovery, architecture, execution, and review.
+---
+
 # Skill: Orchestrate Project
 
 ## Identidade

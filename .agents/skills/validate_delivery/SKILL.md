@@ -1,3 +1,8 @@
+---
+name: validate-delivery
+description: Use this skill when an implementation is complete and needs structured review against the task, architecture, scope, decision log, and project constraints in order to approve, reject, or return it for correction with clear and objective reasoning.
+---
+
 # Skill: Validate Delivery
 
 ## Identidade

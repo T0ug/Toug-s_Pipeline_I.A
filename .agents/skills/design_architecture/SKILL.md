@@ -1,3 +1,8 @@
+---
+name: design-architecture
+description: Use this skill when the project intent has already been clarified and the user needs a technical architecture, solution structure, component boundaries, data flow, persistence strategy, or evaluation of architectural approaches before implementation begins.
+---
+
 # Skill: Design Architecture
 
 ## Identidade

@@ -1,3 +1,8 @@
+---
+name: implement-task
+description: Use this skill when a task is already defined, architecture exists, and the next step is to implement a specific piece of work in a controlled way, respecting scope, architecture, constraints, and acceptance criteria without expanding the task.
+---
+
 # Skill: Implement Task
 
 ## Identidade

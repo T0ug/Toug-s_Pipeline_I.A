@@ -1,3 +1,8 @@
+---
+name: clarify-intent
+description: Use this skill when the user wants to start a new project, refine a vague idea, define scope, identify non-goals, gather functional and non-functional requirements, or turn an initial concept into a validated project definition before architecture or implementation.
+---
+
 # Skill: Clarify Intent
 
 ## Identidade
