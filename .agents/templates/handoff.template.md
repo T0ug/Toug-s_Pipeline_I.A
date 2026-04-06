@@ -1,78 +1,150 @@
 # Handoff
 
 ## Task
-TASK-XXX — título da task
+
+- ID:
+- Nome:
+- Agente responsável:
 
 ---
 
-## Objetivo da task
-Resumo curto do que a task precisava alcançar
+## Objetivo da Task
+
+Descreva de forma objetiva o que esta task deveria entregar.
 
 ---
 
-## O que foi feito
-Descreva de forma objetiva:
+## Escopo executado
 
-- o que foi implementado
-- o que foi alterado
-- o que foi adicionado ou removido
+Descreva exatamente o que foi implementado.
 
----
+Inclua:
 
-## Arquivos alterados
-Liste os principais arquivos impactados:
-
-- arquivo-a
-- arquivo-b
-- arquivo-c
+- funcionalidades criadas
+- partes do sistema afetadas
+- limites respeitados (o que NÃO foi feito)
 
 ---
 
-## Decisões locais
-Liste pequenas decisões tomadas durante a execução que impactam a revisão:
+## Artefatos afetados
 
-- decisão 1
-- decisão 2
+Liste todos os arquivos relevantes:
 
-Se não houve, escrever:
-- nenhuma decisão local relevante
+- criados
+- modificados
+- removidos
 
----
+Exemplo:
 
-## Limites da execução
-Deixe claro o que NÃO foi feito nesta task:
-
-- item 1
-- item 2
+- frontend/src/App.jsx
+- frontend/src/context/KanbanContext.jsx
+- docs/tasks.md
 
 ---
 
-## Pendências ou dúvidas
-Liste qualquer ponto que ainda mereça atenção:
+## Evidência da entrega
 
-- pendência 1
-- dúvida 1
+Obrigatório.
 
-Se não houver:
-- nenhuma pendência relevante
+Inclua pelo menos um dos seguintes:
 
----
+- trechos críticos de código
+- diff resumido
+- descrição clara da lógica implementada
 
-## Riscos ou pontos de atenção para revisão
-Indique onde o Reviewer deve olhar com mais cuidado:
-
-- ponto 1
-- ponto 2
+Se não houver evidência suficiente:
+→ a entrega não pode ser validada
 
 ---
 
-## Status da entrega
+## Lógica implementada
 
-- [ ] pronta para revisão
-- [ ] precisa de contexto adicional
-- [ ] bloqueada
+Explique:
+
+- como a solução funciona
+- decisões técnicas relevantes
+- como os dados fluem
+
+Evitar narrativa longa.
+Focar em funcionamento real.
 
 ---
 
-## Observações finais
-Qualquer observação curta e útil para o próximo agente
+## Validação realizada
+
+Descreva:
+
+- testes executados
+- comportamento observado
+- como validar manualmente
+
+Exemplo:
+
+- aplicação sobe com `npm run dev`
+- drag and drop funcionando entre colunas
+- estado persistindo no localStorage
+
+---
+
+## Limitações conhecidas
+
+Liste:
+
+- o que ainda não foi implementado
+- possíveis pontos frágeis
+- decisões provisórias
+
+---
+
+## Dependências e impacto
+
+Indique:
+
+- quais partes do sistema dependem dessa entrega
+- possíveis efeitos colaterais
+- impacto em próximas tasks
+
+---
+
+## Pendências
+
+Liste:
+
+- o que ficou faltando dentro da task
+- ajustes necessários
+- itens para revisão
+
+---
+
+## Próxima ação sugerida
+
+Indique:
+
+- próxima task lógica
+- ou necessidade de revisão
+
+---
+
+## Status
+
+- [ ] Completo
+- [ ] Parcial
+- [ ] Bloqueado
+
+---
+
+## Observações
+
+Qualquer informação adicional relevante.
+
+---
+
+## Regra crítica
+
+Este handoff deve conter informação suficiente para:
+
+- outro agente continuar o trabalho sem contexto do chat
+- o Reviewer validar a entrega sem acesso externo
+
+Se isso não for possível:
+→ o handoff está incompleto

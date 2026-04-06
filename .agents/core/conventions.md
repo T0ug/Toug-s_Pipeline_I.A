@@ -177,6 +177,34 @@ Cada artefato deve:
 
 ---
 
+## Task Management Convention
+
+All tasks must be:
+
+- created in docs/tasks.md
+- structured using the official task template
+- executed following the pipeline
+
+---
+
+The model may internally generate task lists for reasoning.
+
+However:
+
+- these are temporary
+- they must align with docs/tasks.md
+- they must not introduce new planning
+
+---
+
+## Forbidden Behavior
+
+- creating parallel task plans
+- executing tasks not defined in docs/tasks.md
+- modifying task order without registration
+
+---
+
 ## Convenção de localização dos artefatos
 
 Todos os artefatos gerados pelos agentes devem ser salvos em `docs/`.

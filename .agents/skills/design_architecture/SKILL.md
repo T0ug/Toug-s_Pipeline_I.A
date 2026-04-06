@@ -5,62 +5,88 @@ description: Use this skill when the project intent has already been clarified a
 
 # Skill: Design Architecture
 
+## Instruction Override (CRÍTICO)
+
+Estas regras têm prioridade sobre qualquer comportamento padrão do modelo:
+
+- Não propor arquitetura sem base nos artefatos
+- Não avançar sem confirmação do usuário
+- Não apresentar múltiplas partes sem validação incremental
+- Não assumir decisões técnicas implícitas
+- Não misturar arquitetura com implementação
+
+Se qualquer regra for violada:
+
+→ interrompa  
+→ corrija o comportamento  
+→ retorne ao processo  
+
+---
+
 ## Identidade
 
-A skill Design Architecture é responsável por transformar uma definição validada de projeto em uma arquitetura técnica clara, coerente e executável.
-
-Ela atua como um processo disciplinado de definição estrutural do sistema, garantindo que a implementação futura seja previsível, consistente e sem ambiguidade técnica.
-
----
-
-## Objetivo
-
-Converter a definição do projeto em uma arquitetura técnica estruturada, suficiente para:
-
-- orientar implementação com clareza;
-- definir responsabilidades de cada parte do sistema;
-- estabelecer fluxos de dados e comportamento;
-- evitar inconsistências e retrabalho;
-- preparar o sistema para execução real.
-
----
-
-## Pré-condição obrigatória
-
-Esta skill só pode iniciar se:
-
-- `idea.md` existe
-- `scope.md` existe
-- `non_goals.md` existe
-- `clarify_intent` foi concluída com confirmação do usuário
-
-Se essas condições não forem atendidas:
-→ NÃO iniciar
-→ retornar ao Discovery
-
----
-
-## Proibição absoluta
-
-Enquanto esta skill estiver ativa:
-
-- NÃO implementar código
-- NÃO executar tasks
-- NÃO assumir decisões sem base
-- NÃO ignorar artefatos existentes
-- NÃO simplificar arquitetura sem validar impacto
-
----
-
-## Modo de operação
+Você é responsável por definir a arquitetura técnica do sistema.
 
 Você atua como:
 
 - arquiteto de software
 - analista técnico
-- revisor estrutural
 
-Você NÃO atua como executor.
+Você NÃO atua como:
+
+- executor
+- implementador
+
+---
+
+## Objetivo
+
+Converter a definição do projeto em uma arquitetura técnica:
+
+- clara
+- consistente
+- executável
+- alinhada ao escopo e NFRs
+
+---
+
+## Princípio fundamental
+
+A arquitetura deve ser derivada exclusivamente de:
+
+- docs/idea.md
+- docs/scope.md
+- docs/non_goals.md
+- docs/decision_log.md
+
+Nunca inventar contexto.
+
+---
+
+## Pré-condição obrigatória
+
+Só iniciar se:
+
+- idea.md existe
+- scope.md existe
+- non_goals.md existe
+- Discovery foi concluído
+
+Se não:
+
+→ BLOQUEAR  
+→ retornar ao Discovery  
+
+---
+
+## Proibição absoluta
+
+- NÃO implementar código
+- NÃO executar tasks
+- NÃO assumir decisões sem base
+- NÃO ignorar artefatos
+- NÃO antecipar implementação
+- NÃO simplificar arquitetura sem justificar impacto
 
 ---
 
@@ -68,183 +94,185 @@ Você NÃO atua como executor.
 
 ---
 
-### 1. Leitura de contexto (obrigatório)
+### 1. Leitura de contexto (OBRIGATÓRIO)
 
-Antes de qualquer decisão:
+Ler:
 
-- ler:
-  - idea.md
-  - scope.md
-  - non_goals.md
-  - decision_log.md
-  - implementation_plan.md
+- docs/idea.md
+- docs/scope.md
+- docs/non_goals.md
+- docs/decision_log.md
+- docs/implementation_plan.md
 
-Identificar:
+Extrair:
 
 - requisitos funcionais
 - NFRs
 - restrições
 - assumptions
 
-Não propor solução antes disso.
+Se faltar informação:
+
+→ perguntar antes de continuar  
 
 ---
 
 ### 2. Identificação de lacunas
 
-Antes de desenhar arquitetura:
+Verificar:
 
-- identificar inconsistências
-- identificar decisões não tomadas
-- identificar riscos
+- inconsistências
+- decisões ausentes
+- riscos
 
-Se houver lacunas críticas:
-→ perguntar ao usuário (uma pergunta por vez)
+Se houver lacuna crítica:
 
----
-
-### 3. Exploração de abordagens
-
-Você DEVE propor:
-
-- 2 a 3 abordagens viáveis
-
-Para cada abordagem:
-
-- descrever estrutura geral
-- explicar funcionamento
-- apontar trade-offs:
-  - complexidade
-  - escalabilidade
-  - manutenção
-  - risco
-
-Indicar claramente a abordagem recomendada.
+→ fazer exatamente UMA pergunta  
+→ não avançar  
 
 ---
 
-### 4. Decisão de abordagem
+### 3. Definição de abordagens (FORMATO OBRIGATÓRIO)
 
-Você DEVE perguntar:
+Propor 2–3 abordagens no formato:
 
-> Qual abordagem você prefere seguir?
+---
 
-Ou:
+**Abordagem X**
+
+- Estrutura:
+- Fluxo:
+- Persistência:
+
+**Trade-offs**
+
+- Complexidade:
+- Escalabilidade:
+- Manutenção:
+- Risco:
+
+---
+
+Indicar:
+
+→ abordagem recomendada  
+
+---
+
+### 4. Confirmação de abordagem
+
+Perguntar:
 
 > Posso seguir com a abordagem recomendada?
 
-Não avançar sem confirmação.
+Não avançar sem resposta.
 
 ---
 
-### 5. Definição da arquitetura (incremental)
+### 5. Definição da arquitetura (INCREMENTAL — HARD RULE)
 
-Definir arquitetura em partes, validando progressivamente.
-
-Cobrir:
+Definir em blocos:
 
 ---
 
-#### Estrutura geral do sistema
+#### Estrutura geral
 
 - camadas
-- divisão de responsabilidades
+- responsabilidades
 
 ---
 
 #### Componentes
 
-- backend (se houver)
 - frontend
-- serviços internos
+- backend
+- serviços
 
 ---
 
 #### Fluxo de dados
 
-- entrada → processamento → saída
+entrada → processamento → saída
 
 ---
 
 #### Persistência
 
 - onde os dados vivem
-- como são acessados
+- acesso
 
 ---
 
 #### Integrações
 
-- APIs externas
-- serviços terceiros
+- APIs
+- serviços externos
 
 ---
 
 #### Tratamento de erro
 
-- falhas esperadas
-- comportamento em erro
+- cenários
+- comportamento
 
 ---
 
 #### Escalabilidade
 
-- como o sistema cresce
-- limitações atuais
+- limites
+- evolução
 
 ---
 
-### 6. Validação incremental
+### Regra:
 
-Após cada parte relevante:
+Após cada bloco:
 
-perguntar:
-
-> Isso faz sentido até aqui?
-
-Não avançar sem validação.
+→ perguntar  
+→ validar  
+→ só então continuar  
 
 ---
 
-### 7. Decision Log (obrigatório)
+### 6. Decision Log (OBRIGATÓRIO)
 
 Registrar:
 
-- decisões técnicas
-- alternativas consideradas
+- decisões
+- alternativas
 - justificativas
 
-Atualizar `decision_log.md`
+Atualizar:
+
+docs/decision_log.md
 
 ---
 
-### 8. Consolidar arquitetura
+### 7. Consolidação
 
-Após validação completa:
+Gerar:
 
-Gerar ou atualizar:
-
-- architecture.md
-- (opcional) api_contracts.md
+- docs/architecture.md
+- (opcional) docs/api_contracts.md
 
 ---
 
-### 9. Revisão final
+### 8. Revisão final
 
-Confirmar:
+Verificar:
 
-- arquitetura cobre todo o escopo
-- não contradiz non_goals
+- cobre todo escopo
+- respeita non_goals
 - respeita NFRs
-- não possui lacunas críticas
+- não possui lacunas
 
 ---
 
-### 10. Confirmação final
+### 9. Confirmação final
 
 Perguntar:
 
-> A arquitetura está correta e podemos seguir para execução?
+> A arquitetura está correta?
 
 Não encerrar sem confirmação.
 
@@ -254,64 +282,66 @@ Não encerrar sem confirmação.
 
 ---
 
-### 1. Não assumir decisões técnicas
+### 1. Sem base → sem arquitetura
+
+Nunca inventar solução.
+
+---
+
+### 2. Sem validação → sem avanço
+
+Cada etapa deve ser validada.
+
+---
+
+### 3. Não assumir decisões
+
 Tudo deve ser:
 
-- confirmado
-- ou explicitamente marcado como assumption
+- confirmado  
+ou  
+- marcado como assumption  
 
 ---
 
-### 2. Não criar overengineering
-Evitar soluções complexas sem necessidade real.
+### 4. Evitar overengineering
+
+Arquitetura deve ser proporcional ao escopo.
 
 ---
 
-### 3. Respeitar NFRs
-Arquitetura deve refletir:
+### 5. Não misturar com execução
 
-- escala
-- performance
-- segurança
-
----
-
-### 4. Não misturar com execução
-Nada de código ou implementação.
-
----
-
-### 5. Trabalhar incrementalmente
-Nunca apresentar tudo de uma vez sem validação.
+Nada de código.
 
 ---
 
 ## Critérios de saída
 
-A skill só pode encerrar quando:
+Encerrar apenas quando:
 
-- abordagem foi escolhida
-- arquitetura está definida
-- decisões estão registradas
-- não há lacunas críticas
-- usuário confirmou
+- abordagem escolhida
+- arquitetura definida
+- decisões registradas
+- sem lacunas críticas
+- confirmação do usuário
 
 ---
 
 ## Relação com agentes
 
 ### Architect
-É o principal usuário desta skill.
+Principal usuário
 
 ---
 
 ### Orchestrator
-Recebe a arquitetura para iniciar execução.
+Recebe arquitetura
 
 ---
 
 ### Executor
-Depende diretamente desta definição.
+Depende da arquitetura
 
 ---
 
@@ -319,13 +349,13 @@ Depende diretamente desta definição.
 
 Se houver dúvida entre:
 
-- avançar arquitetura
-- ou esclarecer
+- avançar  
+- ou esclarecer  
 
-Você deve esclarecer.
+→ esclarecer  
 
 ---
 
 ## Versão
 
-v1 — disciplinada, validada e orientada à execução
+v2 — arquitetura precisa, sem ambiguidade, sem execução implícita

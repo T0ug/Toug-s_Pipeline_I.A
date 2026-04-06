@@ -297,6 +297,45 @@ O método está sendo seguido corretamente quando:
 
 ---
 
+## Task Planning Model
+
+The project uses two task representations:
+
+### 1. docs/tasks.md (source of truth)
+
+- defines the official planning of the project
+- persists across sessions
+- must be manually maintained and updated
+
+### 2. Internal task artifacts (Antigravity)
+
+- used by the model during execution
+- may be simplified or optimized for reasoning
+- are session-scoped and not persistent
+
+---
+
+## Alignment Rule
+
+docs/tasks.md is the single source of truth.
+
+Internal task artifacts must reflect docs/tasks.md.
+
+They must never override, replace, or redefine the planning.
+
+---
+
+## Deviation Rule
+
+If a task needs to change:
+
+→ update docs/tasks.md  
+→ register the change in docs/decision_log.md  
+
+Never silently diverge.
+
+---
+
 ## Regra final
 
 Se houver dúvida entre:

@@ -1,371 +1,214 @@
 ---
 name: validate-delivery
-description: Use this skill when an implementation is complete and needs structured review against the task, architecture, scope, decision log, and project constraints in order to approve, reject, or return it for correction with clear and objective reasoning.
+description: Use this skill to validate the delivery of a completed task. Ensures that implementation matches the task, handoff contains sufficient evidence, and the system is safe to proceed.
 ---
 
 # Skill: Validate Delivery
 
-## Identidade
-
-A skill Validate Delivery é responsável por avaliar uma entrega de forma objetiva, verificando se ela cumpre a task, respeita a arquitetura, mantém consistência com os artefatos do projeto e está pronta para seguir no fluxo.
-
-Ela atua como um processo disciplinado de validação, protegendo a integridade do projeto contra aprovações superficiais e reprovações arbitrárias.
-
----
-
 ## Objetivo
 
-Validar uma entrega de forma clara e criteriosa, suficiente para:
+Validar a entrega de uma task com base em:
 
-- confirmar cumprimento da task;
-- verificar aderência à arquitetura;
-- detectar inconsistências e desvios de escopo;
-- registrar problemas com clareza;
-- aprovar ou reprovar com justificativa objetiva.
+- docs/tasks.md
+- docs/handoff.md
+- docs/project_status.md
+- evidência técnica da implementação
 
----
+Garantir que:
 
-## Pré-condição obrigatória
-
-Esta skill só pode iniciar se:
-
-- existe uma task definida em `tasks.md`
-- existe uma entrega associada à task
-- `architecture.md` existe
-- há contexto suficiente em:
-  - decision_log.md
-  - handoff.md
-  - implementation_plan.md
-
-Se essas condições não forem atendidas:
-→ NÃO iniciar
-→ retornar ao Orchestrator
+- a task foi executada corretamente
+- há evidência suficiente da entrega
+- não há inconsistências
+- o projeto pode avançar com segurança
 
 ---
 
-## Proibição absoluta
+## Princípio fundamental
 
-Enquanto esta skill estiver ativa:
+Não validar por confiança.
 
-- NÃO implementar código como regra
-- NÃO redefinir escopo
-- NÃO alterar arquitetura
-- NÃO aprovar sem validação real
-- NÃO reprovar sem justificativa objetiva
-- NÃO exigir perfeição fora do escopo da task
+Validar por evidência.
 
 ---
 
-## Modo de operação
+## Etapa 1 — Identificar a task
 
-Você atua como:
-
-- validador técnico
-- revisor crítico
-- guardião de consistência
-
-Você NÃO atua como executor, arquiteto ou descobridor de escopo.
+- localizar a task atual em docs/tasks.md
+- verificar status esperado
+- identificar escopo da task
 
 ---
 
-## Processo
+## Etapa 2 — Ler o handoff
 
----
+Arquivo obrigatório:
 
-### 1. Leitura da referência de validação (obrigatório)
-
-Antes de avaliar a entrega, ler:
-
-- task atual em `tasks.md`
-- `architecture.md`
-- `decision_log.md`
-- `handoff.md`
-- `implementation_plan.md` (quando relevante)
+- docs/handoff.md
 
 Extrair:
 
-- objetivo da task
-- critérios de aceite
-- restrições
-- limites de escopo
-- decisões que impactam a implementação
+- objetivo
+- escopo executado
+- artefatos afetados
+- evidência da entrega
+- validação realizada
+- pendências
 
 ---
 
-### 2. Leitura da entrega
+## Etapa 3 — Verificar evidência
 
-Analisar:
+Regra crítica:
 
-- código implementado
-- arquivos alterados
-- registro de handoff
-- qualquer evidência fornecida pelo Executor
+Se não houver evidência suficiente:
 
-Confirmar:
+→ BLOQUEAR validação
 
-- o que foi entregue
-- o que mudou
-- o que ficou pendente
+Evidência válida inclui:
+
+- trechos de código
+- diff resumido
+- descrição clara da lógica implementada
+- instruções reproduzíveis
+
+Evidência inválida:
+
+- descrição vaga
+- ausência de arquivos
+- ausência de comportamento verificável
 
 ---
 
-### 3. Validação funcional
+## Etapa 4 — Validar execução
 
 Verificar:
 
-- a task foi cumprida?
-- o comportamento esperado existe?
-- os critérios de aceite foram atendidos?
-
-Se não:
-→ registrar problema objetivo
+- a implementação corresponde ao objetivo da task?
+- o escopo foi respeitado?
+- houve vazamento de escopo?
+- algo importante ficou faltando?
 
 ---
 
-### 4. Validação estrutural
+## Etapa 5 — Validar coerência com o projeto
 
 Verificar:
 
-- a entrega respeita `architecture.md`?
-- os padrões do projeto foram mantidos?
-- há desvio técnico não autorizado?
-
-Se houver:
-→ registrar como problema estrutural
+- consistência com architecture.md (se existir)
+- consistência com decision_log.md
+- impacto em outras partes do sistema
 
 ---
 
-### 5. Validação de escopo
+## Etapa 6 — Validar testabilidade
 
 Verificar:
 
-- a implementação ficou dentro do limite da task?
-- houve expansão indevida?
-- foram feitas alterações paralelas sem justificativa?
+- existe forma clara de validar a entrega?
+- os passos de validação são reproduzíveis?
+- o comportamento esperado está descrito?
 
-Se houve:
-→ registrar como desvio de escopo
+Se não for possível validar:
 
----
-
-### 6. Validação de consistência
-
-Verificar:
-
-- a entrega contradiz algum artefato?
-- há conflito com:
-  - scope.md
-  - non_goals.md
-  - decision_log.md
-  - architecture.md
-
-Se houver:
-→ registrar inconsistência
+→ BLOQUEAR
 
 ---
 
-### 7. Classificação dos achados
+## Etapa 7 — Identificar problemas
 
-Cada problema encontrado deve ser classificado como:
+Classificar:
 
-- crítico
-- relevante
-- menor
+### Crítico
+- ausência de evidência
+- divergência com task
+- inconsistência estrutural
 
-#### Crítico
-Impede aprovação porque:
-- quebra arquitetura
-- viola escopo
-- falha no objetivo principal
-- gera inconsistência grave
+### Médio
+- falta de clareza
+- validação fraca
+- documentação incompleta
 
-#### Relevante
-Não quebra tudo, mas exige correção antes da conclusão final.
-
-#### Menor
-Pode ser ajustado depois, desde que não comprometa a integridade da entrega.
+### Leve
+- melhoria de organização
+- sugestão técnica
 
 ---
 
-### 8. Decisão de validação
+## Etapa 8 — Decisão
 
-Tomar uma única decisão:
+Escolher apenas uma:
 
-- aprovado
-- aprovado com observações
-- reprovado
-
-#### Aprovado
+### ✅ APROVADO
 Quando:
-- a task foi cumprida
-- arquitetura foi respeitada
-- não há inconsistência relevante
 
-#### Aprovado com observações
-Quando:
-- a task foi cumprida
-- existem ajustes menores
-- os problemas não comprometem a integridade
-
-#### Reprovado
-Quando:
-- a task não foi cumprida
-- há desvio estrutural
-- há inconsistência relevante
-- houve expansão indevida de escopo
+- evidência suficiente existe
+- task foi cumprida corretamente
+- sistema está consistente
 
 ---
 
-### 9. Registro da revisão
+### ⚠️ APROVADO COM RESSALVAS
+Quando:
 
-Gerar ou atualizar `review_report.md` com:
-
-- identificação da task
-- resumo da entrega
-- análise funcional
-- análise estrutural
-- análise de escopo
-- inconsistências detectadas
-- decisão final
-- ações necessárias (se houver)
+- entrega está correta
+- mas há problemas não críticos
 
 ---
 
-### 10. Atualização operacional
+### ❌ REPROVADO
+Quando:
 
-Atualizar, quando aplicável:
+- não há evidência suficiente
+- task não foi cumprida corretamente
+- não é possível validar
 
-- `project_status.md`
-- `handoff.md`
+---
 
-Registrar:
+## Etapa 9 — Gerar review_report.md
 
-- status da revisão
-- pontos para correção
-- bloqueios
+Criar ou atualizar:
+
+docs/review_report.md
+
+Conteúdo:
+
+- task analisada
+- status (aprovado / ressalvas / reprovado)
+- problemas encontrados
+- justificativa técnica
+- recomendações
 
 ---
 
 ## Regras obrigatórias
 
----
-
-### 1. Validar contra referência, não contra opinião
-A entrega deve ser avaliada com base em:
-
-- task
-- arquitetura
-- decisões registradas
-- escopo
-
-Nunca com base em gosto pessoal.
+### 1. Sem evidência, sem validação
+Nunca aprovar sem evidência concreta.
 
 ---
 
-### 2. Não aprovar com dúvida relevante
-Se existir dúvida crítica:
-→ reprovar ou pedir esclarecimento
+### 2. Não confiar no Executor
+Tudo deve ser verificado.
 
 ---
 
-### 3. Não reprovar por detalhe irrelevante
-Problemas menores não devem bloquear entrega funcional e consistente.
+### 3. Não assumir contexto do chat
+Validar apenas com base nos artefatos.
 
 ---
 
-### 4. Toda reprovação deve ser acionável
-Se reprovar, dizer claramente:
-
-- o que está errado
-- por que está errado
-- o que precisa mudar
+### 4. Não suavizar problemas críticos
+Problemas críticos devem bloquear avanço.
 
 ---
 
-### 5. Toda aprovação deve ser consciente
-Não aprovar só porque “parece bom”.
-
----
-
-## Situações especiais
-
----
-
-### Entrega incompleta
-
-→ reprovar  
-→ registrar lacunas objetivamente
-
----
-
-### Entrega correta, mas com pequenos pontos de melhoria
-
-→ aprovar com observações
-
----
-
-### Conflito entre código e arquitetura
-
-→ reprovar  
-→ registrar impacto
-
----
-
-### Falta de contexto suficiente para validar
-
-→ não inventar análise  
-→ pedir esclarecimento  
-→ ou retornar ao Orchestrator
-
----
-
-### Descoberta de problema fora da task
-
-→ registrar como observação  
-→ não transformar isso automaticamente em reprovação, salvo se impactar a integridade da entrega
-
----
-
-## Critérios de saída
-
-A skill só pode encerrar quando:
-
-- a entrega foi analisada contra os artefatos corretos
-- os problemas foram classificados
-- a decisão foi tomada
-- a justificativa foi registrada
-- o resultado ficou claro para o próximo passo
-
----
-
-## Relação com agentes
-
-### Reviewer
-É o principal usuário desta skill.
-
----
-
-### Executor
-Recebe o resultado da validação quando houver correções.
-
----
-
-### Orchestrator
-Recebe a decisão para definir o próximo passo.
+### 5. Não aprovar por conveniência
+A aprovação deve ser técnica, não emocional.
 
 ---
 
 ## Regra final
 
-Se houver dúvida entre:
+Se não for possível provar que a task foi corretamente executada:
 
-- aprovar por conveniência
-- ou bloquear por integridade
-
-Você deve proteger a integridade do projeto.
-
----
-
-## Versão
-
-v1 — validação objetiva, rastreável e orientada à consistência
+→ a task não está concluída
