@@ -27,6 +27,29 @@ por diferentes agentes, em diferentes fases.
 
 ---
 
+## Local padrão dos artefatos
+
+Todos os artefatos listados neste índice pertencem ao projeto e devem ser armazenados na pasta:
+
+`docs/`
+
+Exemplos:
+- `docs/idea.md`
+- `docs/scope.md`
+- `docs/non_goals.md`
+- `docs/decision_log.md`
+- `docs/implementation_plan.md`
+- `docs/tasks.md`
+- `docs/architecture.md`
+- `docs/project_status.md`
+- `docs/handoff.md`
+- `docs/review_report.md`
+
+A pasta `.agents/` não faz parte do armazenamento dos artefatos do projeto.
+Ela guarda apenas a definição do método e do sistema de agentes.
+
+---
+
 ## Artefatos de definição
 
 ---

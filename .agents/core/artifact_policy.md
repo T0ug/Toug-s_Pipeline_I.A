@@ -33,6 +33,27 @@ Nunca deve reescrever integralmente um artefato estrutural por conveniência.
 
 ---
 
+## Local padrão dos artefatos
+
+Os artefatos de projeto definidos nesta política devem ser criados e mantidos dentro da pasta `docs/`.
+
+Exemplos:
+- `docs/idea.md`
+- `docs/scope.md`
+- `docs/non_goals.md`
+- `docs/decision_log.md`
+- `docs/implementation_plan.md`
+- `docs/tasks.md`
+- `docs/architecture.md`
+- `docs/project_status.md`
+- `docs/review_report.md`
+- `docs/handoff.md`
+
+A pasta `.agents/` não deve ser usada para guardar saídas do projeto.
+Ela é reservada ao método e à configuração do pipeline.
+
+---
+
 ## Artefatos-base do projeto
 
 A versão inicial do método reconhece os seguintes artefatos como núcleo operacional do projeto.

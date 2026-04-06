@@ -295,6 +295,17 @@ O sistema está correto quando:
 
 ---
 
+## Regra de saída dos agentes
+
+Todos os agentes devem criar ou atualizar artefatos do projeto dentro da pasta `docs/`.
+
+Nenhum agente deve salvar artefatos operacionais do projeto dentro de `.agents/`.
+
+Exceção:
+A pasta `.agents/` só deve ser alterada quando o objetivo for evoluir o próprio pipeline.
+
+---
+
 ## Regra final
 
 Se houver dúvida sobre qual agente deve atuar:

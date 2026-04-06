@@ -23,6 +23,14 @@ Portanto, a regra padrão do sistema é:
 
 ---
 
+## Escopo desta política
+
+Esta política se aplica aos artefatos do projeto armazenados em `docs/`.
+
+Ela não rege os arquivos da pasta `.agents/`, exceto quando o objetivo explícito for modificar o próprio pipeline.
+
+---
+
 ## Modos de alteração permitidos
 
 Toda modificação em artefatos deve ocorrer em um dos seguintes modos:

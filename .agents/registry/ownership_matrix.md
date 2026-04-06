@@ -13,6 +13,19 @@ O objetivo é evitar conflitos, sobrescritas indevidas, ambiguidades de responsa
 
 ---
 
+## Regra de localização
+
+Todas as permissões desta matriz se aplicam aos artefatos localizados dentro da pasta `docs/`.
+
+Exemplos:
+- `docs/idea.md`
+- `docs/architecture.md`
+- `docs/tasks.md`
+
+A matriz não se aplica aos arquivos internos da pasta `.agents/`, exceto quando o objetivo for editar o próprio pipeline.
+
+---
+
 ## Agentes do sistema
 
 - Discovery

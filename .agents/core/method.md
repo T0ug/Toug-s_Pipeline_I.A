@@ -47,6 +47,31 @@ O projeto deve evoluir por etapas, sem saltos.
 
 ---
 
+## Local padrão dos artefatos do projeto
+
+Todos os artefatos operacionais e documentais do projeto devem ser criados ou atualizados dentro da pasta:
+
+`docs/`
+
+Exemplos:
+- `docs/idea.md`
+- `docs/scope.md`
+- `docs/non_goals.md`
+- `docs/decision_log.md`
+- `docs/implementation_plan.md`
+- `docs/tasks.md`
+- `docs/architecture.md`
+- `docs/project_status.md`
+- `docs/handoff.md`
+- `docs/review_report.md`
+
+A pasta `.agents/` não deve ser usada para guardar saídas do projeto.
+Ela existe exclusivamente para armazenar o método, os agentes, as skills, os workflows, os templates e os índices do sistema.
+
+Se o diretório `docs/` não existir, ele deve ser criado antes da geração dos artefatos.
+
+---
+
 ## Ciclo de vida do projeto
 
 O sistema opera em quatro fases:

@@ -177,6 +177,24 @@ Cada artefato deve:
 
 ---
 
+## Convenção de localização dos artefatos
+
+Todos os artefatos gerados pelos agentes devem ser salvos em `docs/`.
+
+Regras:
+- usar caminhos relativos ao projeto;
+- não salvar artefatos do projeto dentro de `.agents/`;
+- criar `docs/` se necessário antes de gerar saídas;
+- referenciar os artefatos pelo caminho completo quando houver risco de ambiguidade.
+
+Exemplo preferível:
+- `docs/architecture.md`
+
+Exemplo a evitar:
+- `architecture.md` sem contexto de localização
+
+---
+
 ## Convenções de workflow
 
 ---
